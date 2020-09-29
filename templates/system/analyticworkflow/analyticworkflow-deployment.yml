@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analyticworkflow
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: analyticworkflow
+  template:
+    metadata:
+      labels:
+        app: analyticworkflow
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: "medifor-registry-token"
+      containers:
+      - name: workflow
+        image: "{{ .Values.analyticworker.container }}:develop" # ID: 724e52c95
+        imagePullPolicy: Always
+        ports:
+          - containerPort: {{ .Values.analyticworker.ports.grpc.port_number }}
+            name: grpc
+        volumeMounts:
+          - name: analytic-config
+            mountPath: {{ .Values.analyticworker.config_mount }} 
+            subPath: "analytic_config.json" 
+        command:
+          - "analyticworkflow"
+          - "--pgaddr={{ .Values.postgres.address }}:{{ .Values.postgres.port }}"
+          - "--pguser={{ .Values.postgres.username }}"
+          - "--pgdb={{ .Values.postgres.database }}"
+          - "--eqaddr=eqmedifor:{{ .Values.entroq.port }}"
+          - "--listen=:{{ .Values.analyticworker.ports.grpc.port_number }}"
+          - "--num_fanout=5"
+          - "--num_outbox=10"
+          - "--analytic_config={{ .Values.analyticworker.config_mount }}"
+          - "--fusionOutDir=/medifor/output"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+            nvidia.com/gpu: 0
+          requests:
+            cpu: 100m
+            memory: 250Mi
+            nvidia.com/gpu: 0
+      volumes:
+        - name: analytic-config
+          configMap:
+            name: analyticlist-configmap

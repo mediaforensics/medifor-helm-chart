@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vol-init
+  namespace: {{ .Values.namespace }}
+spec:
+  template:
+    spec:
+      serviceAccountName: init-privileged
+      volumes:
+        - name: medifor-data
+          persistentVolumeClaim:
+            claimName: medifor-data-pvc
+      restartPolicy: Never
+      containers:
+        - name: init
+          securityContext:
+            runAsUser: 0
+          image: alpine:3.7
+          command:
+            - sh
+            - -c
+            - "chmod -R a+rwx /medifor"
+          volumeMounts:
+            - name: medifor-data
+              mountPath: /medifor

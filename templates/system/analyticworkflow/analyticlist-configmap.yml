@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: analyticlist-configmap
+  namespace: {{ .Values.namespace }}
+data: 
+  analytic_config.json: |
+    { 
+      "analytics" : [ {{- range $i, $analytic := concat .Values.analytics .Values.fusers }} 
+        { 
+          "description": "{{ $analytic.description }}",
+          "id": "{{ $analytic.id }}_{{ $analytic.version }}",
+          "media": [ {{- range $i, $mediatype := $analytic.media }}
+            "{{ $mediatype }}" {{- if eq (len $analytic.media) ( add $i 1)  -}}{{ else }},{{- end -}}
+          {{- end }}
+          ],
+          "name": "{{ $analytic.name }}"
+        } {{- if eq (len (concat $.Values.analytics $.Values.fusers)) ( add $i 1)  -}}{{ else }},{{- end -}}
+      {{- end }}
+      ] 
+    }

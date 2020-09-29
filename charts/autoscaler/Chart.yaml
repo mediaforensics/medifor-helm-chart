@@ -1,0 +1,7 @@
+apiVersion: v2
+name: autoscaler
+description: A Helm chart for DARPA Medifor System Autoscaler
+type: application
+version: 0.1.0
+appVersion: 1.16.0
+maintainer: Next Century Corporation / CACI Inc.

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eqmedifor
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: eqmedifor
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eqmedifor
+  template:
+    metadata:
+      labels:
+        app: eqmedifor
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: eqmedifor
+        image: shiblon/entroq:v0.3
+        ports:
+          - containerPort: 37706
+            name: grpc
+        command:
+          - "eqpgsvc"
+        args:
+          - "--dbaddr=pgmedifor"
+          - "--port={{ .Values.entroq.port }}"
+          - "--dbuser={{ .Values.postgres.username }}"
+          - "--dbname={{ .Values.postgres.database }}"
+        resources:
+          limits:
+            cpu: 1.0
+            memory: 1Gi
+            nvidia.com/gpu: 0
+          requests:
+            cpu: 100m
+            memory: 250Mi
+            nvidia.com/gpu: 0

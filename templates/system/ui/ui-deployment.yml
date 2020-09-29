@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.ui.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicas.ui }}
+  selector:
+    matchLabels:
+      app: {{ .Values.ui.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.ui.name }}
+    spec:
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: medifor-registry-token
+      volumes:
+        - name: medifor-data
+          persistentVolumeClaim:
+            claimName: medifor-data-pvc
+      containers:
+      - name: ui
+        image: {{ .Values.ui.container }}
+        ports:
+          - containerPort: {{ .Values.ui.port }}
+            name: http
+        env:
+          {{- range $key, $value := .Values.ui.env }}
+          {{- if not (deepEqual $value "") }}
+          - name: "{{ $key }}"
+            value: "{{ $value }}"
+          {{- end }}
+          {{- end }}
+        volumeMounts:
+          - name: medifor-data
+            mountPath: /medifor
+        resources:
+          limits:
+            cpu: 1.0
+            memory: 1Gi
+            nvidia.com/gpu: 0
+          requests:
+            cpu: 100m
+            memory: 250Mi
+            nvidia.com/gpu: 0

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: analyticworkflow
+  name: analyticworkflow
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+    - name: grpc
+      port: {{ .Values.analyticworker.ports.grpc.port_number }}
+      protocol: TCP
+      targetPort: {{ .Values.analyticworker.ports.grpc.port_number }}
+  selector:
+    app: analyticworkflow

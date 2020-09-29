@@ -1,0 +1,82 @@
+{{ $WORKER := .Values.analyticworker }}
+{{ $MOUNTS := .Values.analyticmounts }}
+{{ $NAMESPACE := .Values.namespace }}
+{{ $REPLICAS := .Values.replicas }}
+{{ $ENTROQ := .Values.entroq }}
+{{- range $analytic := .Values.analytics }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    analytic_name: {{ $analytic.id }}
+    analytic_version: {{ $analytic.version }}
+    app: analytic
+  name: {{ $analytic.id }}
+  namespace: {{ $NAMESPACE }}
+spec:
+  replicas: {{ $REPLICAS.analytic }}
+  selector:
+    matchLabels:
+      analytic_name: {{ $analytic.id }}
+      app: analytic
+  template:
+    metadata:
+      labels:
+        analytic_name: {{ $analytic.id }}
+        analytic_version: {{ $analytic.version }}
+        app: analytic
+    spec:
+      containers:
+      - image: "{{ $analytic.container }}"
+        imagePullPolicy: Always
+        name: analytic
+        ports:
+          - containerPort: {{ $WORKER.ports.grpc.port_number }}
+            name: grpc
+          - containerPort: {{ $WORKER.ports.http.port_number }}
+            name: http
+        resources:
+          limits:
+            cpu: {{ $analytic.resources.limits.cpu }}
+            memory: {{ $analytic.resources.limits.mem }}
+            nvidia.com/gpu: {{ $analytic.resources.limits.gpu }}
+          requests:
+            cpu: {{ $analytic.resources.requests.cpu}}
+            memory: {{ $analytic.resources.requests.mem}}
+            nvidia.com/gpu: {{ $analytic.resources.requests.gpu }}
+        volumeMounts:
+          - mountPath: {{ $MOUNTS.output.internal }}
+            name: medifor-data
+            subPathExpr: output/{{ $analytic.id }}_{{ $analytic.version }}
+          - mountPath: {{ $MOUNTS.input.internal }}
+            name: medifor-data
+            subPath: input
+      - image: "{{ $WORKER.container }}:{{ $WORKER.version }}"
+        imagePullPolicy: Always
+        name: worker
+        command:
+        - "analyticworker"
+        - "--eqaddr=eqmedifor:{{ $ENTROQ.port }}"
+        - "--id={{ $analytic.id }}_{{ $analytic.version }}"
+        - "--backend=:{{ $WORKER.ports.grpc.port_number }}"
+        - "--xin={{ $MOUNTS.input.external }}:{{ $MOUNTS.input.internal }}"
+        - "--xout={{ $MOUNTS.output.external }}/{{ $analytic.id}}_{{ $analytic.version }}:{{ $MOUNTS.output.internal }}"
+        - "--max_attempts=20"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+            nvidia.com/gpu: 0
+          requests:
+            cpu: 500m    
+            memory: 512Mi
+            nvidia.com/gpu: 0
+      imagePullSecrets:
+      - name : medifor-registry-token
+      restartPolicy: Always
+      volumes:
+      - name: medifor-data
+        persistentVolumeClaim:
+          claimName: medifor-data-pvc
+---
+{{ end }}

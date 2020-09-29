@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: analyticscaler
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  serviceName: analyticscaler
+  selector:
+    matchLabels:
+      app: analyticscaler
+  template:
+    metadata:
+      name: analyticscaler
+      namespace: {{ .Values.namespace }}
+      labels:
+        app: analyticscaler
+    spec:
+      restartPolicy: Always
+      serviceAccountName: analyticscaler
+      imagePullSecrets:
+        - name: "medifor-registry-token"
+      containers:
+        - name: analyticscaler
+          image: "gitlab-registry.mediforprogram.com/medifor/autoscaler:develop"
+          imagePullPolicy: Always
+          args:
+            - "--eqaddr=eqmedifor:{{ .Values.entroq.port }}"
+            - "--namespace={{ .Values.namespace }}"

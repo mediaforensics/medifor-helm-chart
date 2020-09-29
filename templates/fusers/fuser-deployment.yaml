@@ -1,0 +1,82 @@
+{{ $WORKER := .Values.analyticworker }}
+{{ $MOUNTS := .Values.analyticmounts }}
+{{ $NAMESPACE := .Values.namespace }}
+{{ $REPLICAS := .Values.replicas }}
+{{ $ENTROQ := .Values.entroq }}
+{{- range $fuser := .Values.fusers }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    analytic_name: {{ $fuser.id }}
+    analytic_version: {{ $fuser.version }}
+    app: analytic
+  name: {{ $fuser.id }}
+  namespace: {{ $NAMESPACE }}
+spec:
+  replicas: {{ $REPLICAS.fusion }}
+  selector:
+    matchLabels:
+      analytic_name: {{ $fuser.id }}
+      app: analytic
+  template:
+    metadata:
+      labels:
+        analytic_name: {{ $fuser.id }}
+        analytic_version: {{ $fuser.version }}
+        app: analytic
+    spec:
+      containers:
+      - image: "{{ $fuser.container }}"
+        imagePullPolicy: Always
+        name: analytic
+        ports:
+          - containerPort: {{ $WORKER.ports.grpc.port_number }}
+            name: grpc
+          - containerPort: {{ $WORKER.ports.http.port_number }}
+            name: http
+        resources:
+          limits:
+            cpu: {{ $fuser.resources.limits.cpu }}
+            memory: {{ $fuser.resources.limits.mem }}
+            nvidia.com/gpu: {{ $fuser.resources.limits.gpu }}
+          requests:
+            cpu: {{ $fuser.resources.requests.cpu}}
+            memory: {{ $fuser.resources.requests.mem}}
+            nvidia.com/gpu: {{ $fuser.resources.requests.gpu }}
+        volumeMounts:
+          - mountPath: {{ $MOUNTS.output.internal }}
+            name: medifor-data
+            subPathExpr: output/{{ $fuser.id }}_{{ $fuser.version }}
+          - mountPath: {{ $MOUNTS.input.internal }}
+            name: medifor-data
+            subPath: input
+      - image: "{{ $WORKER.container }}:{{ $WORKER.version }}"
+        imagePullPolicy: Always
+        name: worker
+        command:
+        - "fusionworker"
+        - "--eqaddr=eqmedifor:{{ $ENTROQ.port }}"
+        - "--id={{ $fuser.id }}_{{ $fuser.version }}"
+        - "--backend=:{{ $WORKER.ports.grpc.port_number }}"
+        - "--xin={{ $MOUNTS.input.external }}:{{ $MOUNTS.input.internal }}"
+        - "--xout={{ $MOUNTS.output.external }}/{{ $fuser.id}}_{{ $fuser.version }}:{{ $MOUNTS.output.internal }}"
+        - "--max_attempts=20"
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+            nvidia.com/gpu: 0
+          requests:
+            cpu: 500m    
+            memory: 512Mi
+            nvidia.com/gpu: 0
+      imagePullSecrets:
+      - name : medifor-registry-token
+      restartPolicy: Always
+      volumes:
+      - name: medifor-data
+        persistentVolumeClaim:
+          claimName: medifor-data-pvc
+---
+{{ end }}
