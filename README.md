@@ -66,9 +66,9 @@ mychart/
     charts/
     ...
 ```
-- ** Chart.yaml ** - Contains a description of the chart and of of its dependencies (which are known as *subcharts* ).
-- ** values.yaml ** - Contains the default values for the chart that are used in the template files.
-- ** templates/ ** - Directory for all template files. When helm evaluates a chart it will send all of the files in this directory
+- **Chart.yaml** - Contains a description of the chart and of of its dependencies (which are known as *subcharts* ).
+- **values.yaml** - Contains the default values for the chart that are used in the template files.
+- **templates/** - Directory for all template files. When helm evaluates a chart it will send all of the files in this directory
                      through a template rendering engine. It then collects the results of those templates and sends them to Kubernetes.
-- ** charts/ ** - Directory that contains other charts, known as *subcharts*, which this chart depends on. Subcharts must be able to exist independently
+- **charts/** - Directory that contains other charts, known as *subcharts*, which this chart depends on. Subcharts must be able to exist independently
                   from their parent chart.
