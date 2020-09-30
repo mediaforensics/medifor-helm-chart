@@ -66,9 +66,21 @@ mychart/
     charts/
     ...
 ```
-- **Chart.yaml** - Contains a description of the chart and of of its dependencies (which are known as *subcharts* ).
+- **Chart.yaml** - Contains a description of the chart and its dependencies (which are known as *subcharts* ).
 - **values.yaml** - Contains the default values for the chart that are used in the template files.
 - **templates/** - Directory for all template files. When helm evaluates a chart it will send all of the files in this directory
                      through a template rendering engine. It then collects the results of those templates and sends them to Kubernetes.
 - **charts/** - Directory that contains other charts, known as *subcharts*, which this chart depends on. Subcharts must be able to exist independently
                   from their parent chart.
+
+### Adding your credentials
+Pulling the various docker images from the Medifor docker registry requires the use of an imagePullSecret when working with Kubernetes. The easiest way to add
+your credentials would be to edit the `values.yaml` file to include them
+
+---
+registrycredentials:
+  registry: https://gitlab-registry.mediforprogram.com
+  username: Gitlab Username
+  password: Registry Token
+  email: Medifor program email
+---
