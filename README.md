@@ -77,10 +77,10 @@ mychart/
 Pulling the various docker images from the Medifor docker registry requires the use of an imagePullSecret when working with Kubernetes. The easiest way to add
 your credentials would be to edit the `values.yaml` file to include them
 
----
+```yaml
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
   username: Gitlab Username
   password: Registry Token
   email: Medifor program email
----
+```
