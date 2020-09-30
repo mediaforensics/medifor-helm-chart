@@ -55,6 +55,9 @@ access token to the MediFor gitlab.
 scop to `read_repository` and `read_registry` then create the personal access token.
 3. Save the generated token somewhere safe 
 
+<br/>
+<br/>
+
 ## Working with the chart
 ### Chart structure and features
 All helm charts have the following structure
@@ -114,8 +117,8 @@ For more information please see the offical Helm [template guide](https://helm.s
 
 ### Adding analytics/fusers to the system
 Every analytic pod is a replica of an analytic deployment which includes two containers: a 'worker' and an 'analytic'.
-The definition for these deployments can be found at `templates/analytics/analytic-deployment.yaml`. This deployment file is populated and replicated
-depending on the `analytics` filed in the `values.yml` file.
+The definition for these deployments can be found at `templates/analytics/analytic-deployment.yaml`. The deployment file is populated and replicated
+for each analytic in the `analytics` field in the `values.yml` file.
 
 ```yaml
 analytics:
