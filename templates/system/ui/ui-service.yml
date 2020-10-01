@@ -6,11 +6,12 @@ metadata:
   name: {{ .Values.ui.name }}
   namespace: {{ .Values.namespace }}
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - name: http
-      port: {{ .Values.ui.port }}
       protocol: TCP
+      port: {{ .Values.ui.port }}
       targetPort: {{ .Values.ui.port }}
+      nodePort: 30000
   selector:
     app: {{ .Values.ui.name }}
