@@ -205,7 +205,7 @@ entroq:
   port: 37706
 
 ################################################## 
-# Configurable condition for the autoscaler subchart
+# Configurable condition for the autoscaler templates
 #
 autoscaler:
   enabled: false
