@@ -1,3 +1,4 @@
+{{ if .Values.autoscaler.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -27,3 +28,4 @@ spec:
           args:
             - "--eqaddr=eqmedifor:{{ .Values.entroq.port }}"
             - "--namespace={{ .Values.namespace }}"
+{{ end }}
