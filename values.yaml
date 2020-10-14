@@ -32,12 +32,12 @@ analytics:
     media: ["IMAGE", "VIDEO"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .125
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .25
+        mem: 200Mi
         gpu: 0
   - id: exif
     name: Baseline Analytic Exif
@@ -47,12 +47,12 @@ analytics:
     media: ["IMAGE"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .125
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .25
+        mem: 200Mi
         gpu: 0
 ##########################################################
 #   The list of fusion analytics to create deployments for
