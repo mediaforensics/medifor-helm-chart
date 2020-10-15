@@ -32,59 +32,28 @@ analytics:
     media: ["IMAGE", "VIDEO"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .125
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .25
+        mem: 200Mi
         gpu: 0
-  - id: umdgsrnet
-    name: Pixel-based Tampering
-    description: UMD - A network trained to score tampered/authentic pixels in an image
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/bchen2_s_umd__gsrnet:2020-05-26T17-10-15f330000
+  - id: exif
+    name: Baseline Analytic Exif
+    description: Baseline Analytic Exif Description
+    container: gitlab-registry.mediforprogram.com/medifor/program-registry/medifor_s_baseline-analytic-exif:prod2020-03
     version: prod2020-03
     media: ["IMAGE"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .125
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .25
+        mem: 200Mi
         gpu: 0
-  - id: colorphenomenology
-    name: Colorphenomenology
-    description: Colorphenomenology description
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/bmiller_s_fibber-cpt-proto_s_colorphenomenology:2019-03-07T18-36-48f596000
-    version: prod2020-03
-    media: ["IMAGE"]
-    resources:
-      requests:
-        cpu: .5
-        mem: 500Mi
-        gpu: 0
-      limits:
-        cpu: 1
-        mem: 1000Mi
-        gpu: 0
-  - id: splicebuster-face
-    name: Face Forgery Detector based on Splicebuster
-    description: A fully-automatic approach for face manipulation detection. It is based on splicebuster and works in supervised modality on the faces detected in the image.
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/uscisi__ta11_s_sb__face:2019-03-09T12-59-24f883000
-    version: prod2020-03
-    media: ["IMAGE"]
-    resources:
-      requests:
-        cpu: .5
-        mem: 500Mi
-        gpu: 0
-      limits:
-        cpu: 1
-        mem: 1000Mi
-        gpu: 0
-
 ##########################################################
 #   The list of fusion analytics to create deployments for
 #
@@ -97,20 +66,20 @@ analytics:
 #   resource - The resource requests and limits to be used by the fusion analytic in the cluster
 #
 fusers:
-  - id: ta2-combo
-    name: Boosted Manipulation Detection
-    description: Identifies manipulated media (both images and videos) trained on demo VIP image analytic list boosting the most accurate scores based on the varying patterns of the analytics results
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-16T16-44-24f533000
+  - id: ta2avg
+    name: Image Averaging Fusion
+    description:  Averages all analytic input scores available to calculate score
+    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .1
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .2
+        mem: 200Mi
         gpu: 0
 
 ##################################################################
