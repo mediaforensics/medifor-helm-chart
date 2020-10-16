@@ -6,13 +6,12 @@ metadata:
   name: medifor-data-pvc
   namespace: {{ .Values.namespace }}
 spec:
-  storageClassName: local-storage
+  {{- if .Values.persistence.medifor.storageClass }}
+  storageClassName: {{ .Values.persistence.medifor.storageClass }}
+  {{- end }}
   accessModes:
-  - ReadWriteMany
+    - {{ .Values.persistence.medifor.accessMode }}
   resources:
     requests:
-      storage: {{ .Values.persistentvolume.requests }}
-  selector:
-    matchLabels:
-      type: local
-      vol: medifor-data
+      storage: {{ .Values.persistence.medifor.size }}
+  

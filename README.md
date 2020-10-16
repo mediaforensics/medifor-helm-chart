@@ -23,7 +23,7 @@ scop to `read_repository` and `read_registry` then create the personal access to
 
 ### Add Helm Chart
 ```bash
-$ git clone https://gitlab.mediforprogram.com/NextCentury/medifor-helm-chart
+$ git clone https://gitlab.mediforprogram.com/medifor/medifor-helm-chart.git
 $ cd medifor-helm-chart
 ```
 
@@ -51,14 +51,21 @@ $ kubectl --namespace=medifor-mini get pods
 ### Expose UI Service
 Expose the UI Service on the minikube cluster to your local machine.
 ```bash
-minikube service medifor-demo-ui -n medifor-mini
+$ minikube service medifor-demo-ui -n medifor-mini
 ```
 
 ## Uninstallation
 Uninstall Helm chart with release name `medifor`.
 ```bash
-helm uninstall medifor
+$ helm uninstall medifor
 ```
+
+## Persistence
+Persistent Volume Claims are used to maintain the data across deployments. This system uses the default storage classes provided with your cluster and is verified to work on GCE, AWS and minikube.
+
+If running your cluster on microK8s you may need to **[enable the default storage class](https://igy.cx/posts/setup-microk8s-rbac-storage/).** <br/>
+
+If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance* 
 
 ## Troubleshooting
 For more detailed instructions on working with this chart see **[here](development.md).**

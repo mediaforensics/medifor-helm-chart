@@ -149,14 +149,6 @@ ui:
     UI_GROUP_TAG_PREFIX: "group"
     UI_TAG_PREFIX_FLAG: "__"
 
-######################################################################
-#   Volume name and path for host machine mount to analytic pods   
-#
-persistentvolume:
-  path: "/home/docker/data"
-  capacity: 2Gi
-  requests: 1Gi
-
 #################################
 # Values for the postgres resource
 #
@@ -182,9 +174,30 @@ autoscaler:
 ######################################################
 # Credentials for accessing the medifor docker registry
 # These can either be hardcoded or passed in on 'helm install'
+#
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
   username: 
   password: 
   email: 
+
+###################################
+# Default Persistence Configuration
+# The medifor-data-pvc and the postgres-pvc will use the cluster's default storage class if
+# `storageClass:` is undefined
+#
+# Otherwise you can create your own custom storage class and define it as
+# `storageClass: <customStorageClassName>`
+#
+persistence:
+  medifor:
+    # storageClass: 
+    accessMode: ReadWriteMany
+    size: 2Gi
+  postgres:
+    # storageClass: 
+    accessMode: ReadWriteOnce
+    size: 5Gi
+
+
 
