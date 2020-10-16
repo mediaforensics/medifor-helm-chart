@@ -1,4 +1,3 @@
-
 # Working with the chart
 ### Chart structure and features
 All helm charts have the following structure
@@ -167,25 +166,34 @@ Assuming that `newanalytics.yaml` contained a list of analytics that matched the
 
 For more info on helm install see [here](https://helm.sh/docs/helm/helm_install/).
 
-### Subcharts
-This chart only contains a single subchart which is the autoscaler. The autoscaler allows the system to dynamically scale deployments up and down to allow a large collections of analytics to be used in resource constrained environments.
+## Persistence
+Persistent Volume Claims are used to maintain the data across deployments. This system uses the default storage classes provided with your cluster and is verified to work on GCE, AWS and minikube. If you would like to provide your own storage then please populate the storageClass values in `values.yml` and create your own storage class resources files.
 
-You can see that the autoscaler is a dependency in the `Chart.yml` file and that the resources definitions exist in the `charts/` subdirectory.
 ```yaml
-dependencies:
-  - name: autoscaler
-    version: 0.1.0
-    condition: autoscaler.enabled
+persistence:
+  medifor:
+    # storageClass: 
+    accessMode: ReadWriteMany
+    size: 2Gi
+  postgres:
+    # storageClass: 
+    accessMode: ReadWriteOnce
+    size: 5Gi
 ```
 
-For this default configuration the autoscaler is disabled which is noted the the `autoscaler.enabled` field in `values.yml`. Again this can be overriden either by editing `values.yml` or through the `--set` flag on `helm install`.
+Dynamically allocated Persisent Volumes default to a reclaim policy of 'Delete', to avoid data loss it is recommended to change this reclaim policy to 'Retain'.
 
-<br/>
-<br/>
-
-## Accessing the UI
-The UI component offers a load balancer service that can be exposed to allow access to the cluster.
 ```bash
-minikube service medifor-demo-ui -n medifor-mini
+$ kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                           STORAGECLASS   REASON   AGE
+pvc-0541deb9-fe88-4ced-aa18-d840bc2caf8a   5Gi        RWO            Delete           Bound    medifor-mini/postgres-pvc       standard                2m19s
+pvc-ba4ebe21-3be1-4adc-afe4-27cb75080c2a   2Gi        RWX            Delete           Bound    medifor-mini/medifor-data-pvc   standard                2m19s
+
+$ kubectl patch pv <pvc-0541deb9-fe88-4ced-aa18-d840bc2caf8a> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
+$ kubectl patch pv <pvc-ba4ebe21-3be1-4adc-afe4-27cb75080c2a> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 ```
-This exposes the medifor-demo-ui service on the medifor-mini namespace to your local machine by forwarding a port out of the minikube instance.
+
+Please see the official K8s docs on [persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) for more information.
+
+<br/>
+<br/>
