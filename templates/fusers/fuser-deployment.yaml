@@ -51,7 +51,7 @@ spec:
           - mountPath: {{ $MOUNTS.input.internal }}
             name: medifor-data
             subPath: input
-      - image: "{{ $WORKER.container }}:{{ $WORKER.version }}"
+      - image: "{{ $WORKER.container }}"
         imagePullPolicy: Always
         name: worker
         command:

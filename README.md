@@ -5,11 +5,11 @@ For our purposes we will use minikube as an example.
 
 Custom configuration may be needed depending on your specific cluster setup.
 
-For development instructions see **[here](development.md).**
+For development instructions see **[here](docs/development.md).**
 
 ## Prerequisities 
-- Kubernetes Clusters 1.10+
-- Helm 3.0.0 +
+- Kubernetes Cluster 1.10+
+- Helm 3.0.0+
 
 ### Generate Gitlab Token
 1.  Navigate to [this page](https://gitlab.mediforprogram.com/profile/personal_access_tokens) to generate a new personal
@@ -20,7 +20,6 @@ scop to `read_repository` and `read_registry` then create the personal access to
 
 
 ## Installation
-
 ### Add Helm Chart
 ```bash
 $ git clone https://gitlab.mediforprogram.com/medifor/medifor-helm-chart.git
@@ -68,4 +67,4 @@ If running your cluster on microK8s you may need to **[enable the default storag
 If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance* 
 
 ## Troubleshooting
-For more detailed instructions on working with this chart see **[here](development.md).**
+For more detailed instructions on working with this chart see **[here](docs/development.md).**

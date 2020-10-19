@@ -18,7 +18,7 @@ spec:
         - name: "medifor-registry-token"
       containers:
       - name: workflow
-        image: "{{ .Values.analyticworker.container }}:develop" # ID: 724e52c95
+        image: "{{ .Values.analyticworker.container }}" # ID: 724e52c95
         imagePullPolicy: Always
         ports:
           - containerPort: {{ .Values.analyticworker.ports.grpc.port_number }}
