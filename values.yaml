@@ -1,8 +1,17 @@
 # Default values for medifor-ui-helm-chart
 # Declare variables to be passed into your templates.
 
-# The namespace for the Kubernetes cluster that will be created
+###############################################################
+# The namespace that will contain the medifor resources
+#
 namespace : medifor-mini
+
+###################################
+# Flag to enable/disable Prometheus
+# If enable then helm will create template for analytic services and service monitors
+#
+prometheus:
+  enabled: false
 
 ###################################
 #   Replica counts for various pods
@@ -54,6 +63,7 @@ analytics:
         cpu: .25
         mem: 200Mi
         gpu: 0
+
 ##########################################################
 #   The list of fusion analytics to create deployments for
 #
@@ -104,9 +114,9 @@ analyticmounts:
 #
 analyticworker:
     id: analyticworker
-    version: 2020-02-04.1
+    version: develop
     config_mount: /mnt/config/analytic_config.json
-    container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker
+    container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker:develop
     ports:
       grpc:
         port_number: 50051

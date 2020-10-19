@@ -18,6 +18,7 @@ spec:
   selector:
     matchLabels:
       analytic_name: {{ $analytic.id }}
+      analytic_version: {{ $analytic.version }}
       app: analytic
   template:
     metadata:
@@ -51,9 +52,12 @@ spec:
           - mountPath: {{ $MOUNTS.input.internal }}
             name: medifor-data
             subPath: input
-      - image: "{{ $WORKER.container }}:{{ $WORKER.version }}"
+      - image: "{{ $WORKER.container }}"
         imagePullPolicy: Always
         name: worker
+        ports: 
+          - containerPort: 2112
+            name: prometheus
         command:
         - "analyticworker"
         - "--eqaddr=eqmedifor:{{ $ENTROQ.port }}"
