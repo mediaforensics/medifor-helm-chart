@@ -113,7 +113,7 @@ analyticmounts:
 #   ports - Ports the analytic worker container will listen on
 #
 analyticworker:
-    id: analyticworker
+    id: analyticworkfow
     version: develop
     config_mount: /mnt/config/analytic_config.json
     container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker:develop
@@ -122,6 +122,8 @@ analyticworker:
         port_number: 50051
       http:
         port_number: 50052
+      prometheus:
+        port_number: 2112
 
 ###################################################################
 #   The values and environment variables for the medifor-ui container 
@@ -142,7 +144,7 @@ analyticworker:
 #   env.UI_TAG_PREFIX_FLAG - Prefix appended to all user and group tags - '__user' '__group'
 
 ui:
-  name: medifor-demo-ui
+  name: medifor-ui
   container: gitlab-registry.mediforprogram.com/medifor/medifor-demo-ui:develop
   port: 3000
   env:
@@ -152,6 +154,7 @@ ui:
     PORT: "3000"
     CACHE_TTL_SECONDS: 600
     UI_ENABLE_GROUPS: false
+    UI_ENABLE_DELETE: true
     UI_DEFAULT_FUSER_ID: ""
     UI_UNKNOWN_USERS: "deny"
     UI_GROUP_PREFIX: "medifor-uigrp-"

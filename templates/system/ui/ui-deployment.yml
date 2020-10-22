@@ -37,7 +37,7 @@ spec:
           {{- end }}
         volumeMounts:
           - name: medifor-data
-            mountPath: /medifor
+            mountPath: {{ .Values.ui.env.CONTAINER_ROOT}}
         resources:
           limits:
             cpu: 1.0

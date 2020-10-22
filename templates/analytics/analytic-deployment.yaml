@@ -56,7 +56,7 @@ spec:
         imagePullPolicy: Always
         name: worker
         ports: 
-          - containerPort: 2112
+          - containerPort: {{$WORKER.ports.prometheus.port_number}}
             name: prometheus
         command:
         - "analyticworker"
