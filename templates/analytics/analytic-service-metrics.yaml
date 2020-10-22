@@ -12,7 +12,7 @@ spec:
   ports:
     - name: prometheus
       protocol: TCP
-      port: 2112
+      port: {{ $.Values.analyticworker.ports.prometheus.port_number}}
       targetPort: prometheus
   selector:
     analytic_name: {{ $analytic.id }}

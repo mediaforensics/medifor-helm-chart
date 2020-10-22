@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     k8s-app: analyticworkflow
-  name: analyticworkflow
+  name: {{ .Values.analyticworker.id }}
   namespace: {{ .Values.namespace }}
 spec:
   ports:
