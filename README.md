@@ -61,6 +61,10 @@ $ kubectl --namespace=medifor-mini get pods
 
 ### Expose UI Service
 
+By default the UI service will be exposed on port `30000` on every node in the cluster.
+
+If you want to set up load balancing or use an ingress controller then custom configuration will be needed. See the [kubernetes services docs](https://kubernetes.io/docs/concepts/services-networking/service/) for more information.
+
 Expose the UI Service on the minikube cluster to your local machine.
 
 ```bash
@@ -81,7 +85,7 @@ Persistent Volume Claims are used to maintain the data across deployments. This 
 
 If running your cluster on microK8s you may need to **[enable the default storage class](https://igy.cx/posts/setup-microk8s-rbac-storage/).** <br/>
 
-If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance\*
+If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance.
 
 ## Troubleshooting
 
