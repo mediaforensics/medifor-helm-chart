@@ -61,13 +61,10 @@ $ kubectl --namespace=medifor-mini get pods
 
 ### Expose UI Service
 
-<<<<<<< HEAD
-=======
 By default the UI service will be exposed on port `30000` on every node in the cluster.
 
 If you want to set up load balancing or use an ingress controller then custom configuration will be needed. See the [kubernetes services docs](https://kubernetes.io/docs/concepts/services-networking/service/) for more information.
 
->>>>>>> 76f21a8faf76d182bd6ace9d2c43607b4f9b6e94
 Expose the UI Service on the minikube cluster to your local machine.
 
 ```bash
@@ -88,11 +85,7 @@ Persistent Volume Claims are used to maintain the data across deployments. This 
 
 If running your cluster on microK8s you may need to **[enable the default storage class](https://igy.cx/posts/setup-microk8s-rbac-storage/).** <br/>
 
-<<<<<<< HEAD
-If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance\*
-=======
 If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance.
->>>>>>> 76f21a8faf76d182bd6ace9d2c43607b4f9b6e94
 
 ## Troubleshooting
 
@@ -150,9 +143,6 @@ The following table lists the configurable parameters of the Medifor Helm Chart 
 | `ui.env.UI_TAG_PREFIX_FLAG`                   | Flag to append to system level group/user tags `__user/__group` <br/> **RECOMMEND NOT CHANGING**                                                                                        | `__`                                                                                                         |
 | `ui.name`                                     | Name for the ui resource                                                                                                                                                                | `medifor-ui`                                                                                                 |
 | `ui.container`                                | Docker image URL for the UI resource                                                                                                                                                    | `gitlab-registry.mediforprogram.com/medifor/medifor-demo-ui:develop`                                         |
-<<<<<<< HEAD
-=======
 | `ui.service.type`                             | Type of service used to expose the UI deployment resource                                                                                                                               | `NodePort`                                                                                                   |
 | `ui.service.nodePort`                         | Port to expose the UI service on across all cluster nodes                                                                                                                               | `30000`                                                                                                      |
->>>>>>> 76f21a8faf76d182bd6ace9d2c43607b4f9b6e94
 | `ui.port`                                     | Port that the node server listens on inside the container <br/> **RECOMMEND NOT CHANGING**                                                                                              | `3000`                                                                                                       |
