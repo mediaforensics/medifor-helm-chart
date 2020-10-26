@@ -1,0 +1,23 @@
+{{- if .Values.prometheus.enabled -}}
+{{- range $analytic := .Values.analytics }}
+apiVersion: v1
+kind: Service
+metadata: 
+  labels: 
+    app: {{ $analytic.id }}-metrics
+  name: {{ $analytic.id }}-metrics
+  namespace: {{ $.Values.namespace }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: prometheus
+      protocol: TCP
+      port: {{ $.Values.analyticworker.ports.prometheus.port_number}}
+      targetPort: prometheus
+  selector:
+    analytic_name: {{ $analytic.id }}
+    analytic_version: {{ $analytic.version }}
+    app: analytic
+---
+{{ end }}
+{{ end }}

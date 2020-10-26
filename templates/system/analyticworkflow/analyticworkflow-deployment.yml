@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: analyticworkflow
+  name: {{ .Values.analyticworker.id }}
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: analyticworkflow
+      app: {{ .Values.analyticworker.id }}
   template:
     metadata:
       labels:
-        app: analyticworkflow
+        app: {{ .Values.analyticworker.id }}
     spec:
       restartPolicy: Always
       imagePullSecrets:
         - name: "medifor-registry-token"
       containers:
       - name: workflow
-        image: "{{ .Values.analyticworker.container }}:develop" # ID: 724e52c95
+        image: "{{ .Values.analyticworker.container }}" # ID: 724e52c95
         imagePullPolicy: Always
         ports:
           - containerPort: {{ .Values.analyticworker.ports.grpc.port_number }}

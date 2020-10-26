@@ -1,0 +1,22 @@
+{{- if .Values.prometheus.enabled }}
+{{- range $analytic := .Values.analytics }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels: 
+    analytic_name: {{ $analytic.id }}-metrics
+    release: prometheus
+  name: {{ $analytic.id }}-metrics
+spec:
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app: {{ $analytic.id }}-metrics
+  endpoints:
+  - port: prometheus
+    path: /metrics
+    interval: 15s
+---
+{{ end }}
+{{ end }}

@@ -1,8 +1,17 @@
 # Default values for medifor-ui-helm-chart
 # Declare variables to be passed into your templates.
 
-# The namespace for the Kubernetes cluster that will be created
-namespace : medifor-mini
+###############################################################
+# The namespace that will contain the medifor resources
+#
+namespace: medifor-mini
+
+###################################
+# Flag to enable/disable Prometheus
+# If enable then helm will create template for analytic services and service monitors
+#
+prometheus:
+  enabled: false
 
 ###################################
 #   Replica counts for various pods
@@ -32,57 +41,27 @@ analytics:
     media: ["IMAGE", "VIDEO"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .125
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .25
+        mem: 200Mi
         gpu: 0
-  - id: umdgsrnet
-    name: Pixel-based Tampering
-    description: UMD - A network trained to score tampered/authentic pixels in an image
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/bchen2_s_umd__gsrnet:2020-05-26T17-10-15f330000
+  - id: exif
+    name: Baseline Analytic Exif
+    description: Baseline Analytic Exif Description
+    container: gitlab-registry.mediforprogram.com/medifor/program-registry/medifor_s_baseline-analytic-exif:prod2020-03
     version: prod2020-03
     media: ["IMAGE"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .125
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
-        gpu: 0
-  - id: colorphenomenology
-    name: Colorphenomenology
-    description: Colorphenomenology description
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/bmiller_s_fibber-cpt-proto_s_colorphenomenology:2019-03-07T18-36-48f596000
-    version: prod2020-03
-    media: ["IMAGE"]
-    resources:
-      requests:
-        cpu: .5
-        mem: 500Mi
-        gpu: 0
-      limits:
-        cpu: 1
-        mem: 1000Mi
-        gpu: 0
-  - id: splicebuster-face
-    name: Face Forgery Detector based on Splicebuster
-    description: A fully-automatic approach for face manipulation detection. It is based on splicebuster and works in supervised modality on the faces detected in the image.
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/uscisi__ta11_s_sb__face:2019-03-09T12-59-24f883000
-    version: prod2020-03
-    media: ["IMAGE"]
-    resources:
-      requests:
-        cpu: .5
-        mem: 500Mi
-        gpu: 0
-      limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .25
+        mem: 200Mi
         gpu: 0
 
 ##########################################################
@@ -97,20 +76,20 @@ analytics:
 #   resource - The resource requests and limits to be used by the fusion analytic in the cluster
 #
 fusers:
-  - id: ta2-combo
-    name: Boosted Manipulation Detection
-    description: Identifies manipulated media (both images and videos) trained on demo VIP image analytic list boosting the most accurate scores based on the varying patterns of the analytics results
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-16T16-44-24f533000
+  - id: ta2avg
+    name: Image Averaging Fusion
+    description: Averages all analytic input scores available to calculate score
+    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
       requests:
-        cpu: .5
-        mem: 500Mi
+        cpu: .1
+        mem: 100Mi
         gpu: 0
       limits:
-        cpu: 1
-        mem: 1000Mi
+        cpu: .2
+        mem: 200Mi
         gpu: 0
 
 ##################################################################
@@ -126,7 +105,7 @@ analyticmounts:
 
 ####################################################################################
 #   The analytic worker that will be use for all analytic and analytic workflow pods
-#   
+#
 #   id - ID for the analytic worker
 #   version - Version for the analytic worker which also serves as the docker image tag
 #   config_mount - Location in the analyticworker container where the analytic configuration file will be mounted
@@ -134,19 +113,21 @@ analyticmounts:
 #   ports - Ports the analytic worker container will listen on
 #
 analyticworker:
-    id: analyticworker
-    version: 2020-02-04.1
-    config_mount: /mnt/config/analytic_config.json
-    container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker
-    ports:
-      grpc:
-        port_number: 50051
-      http:
-        port_number: 50052
+  id: analyticworkfow
+  version: develop
+  config_mount: /mnt/config/analytic_config.json
+  container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker:develop
+  ports:
+    grpc:
+      port_number: 50051
+    http:
+      port_number: 50052
+    prometheus:
+      port_number: 2112
 
 ###################################################################
-#   The values and environment variables for the medifor-ui container 
-# 
+#   The values and environment variables for the medifor-ui container
+#
 #   name - Name for the UI resource
 #   container - URL for the docker image for the UI container
 #   port - Port that the UI container will expose inside the pod
@@ -163,9 +144,12 @@ analyticworker:
 #   env.UI_TAG_PREFIX_FLAG - Prefix appended to all user and group tags - '__user' '__group'
 
 ui:
-  name: medifor-demo-ui
+  name: medifor-ui
   container: gitlab-registry.mediforprogram.com/medifor/medifor-demo-ui:develop
   port: 3000
+  service:
+    type: NodePort
+    nodePort: 30000
   env:
     CONTAINER_ROOT: "/medifor"
     WORKFLOW_HOST: "analyticworkflow"
@@ -173,20 +157,13 @@ ui:
     PORT: "3000"
     CACHE_TTL_SECONDS: 600
     UI_ENABLE_GROUPS: false
+    UI_ENABLE_DELETE: true
     UI_DEFAULT_FUSER_ID: ""
     UI_UNKNOWN_USERS: "deny"
     UI_GROUP_PREFIX: "medifor-uigrp-"
     UI_USER_TAG_PREFIX: "user"
     UI_GROUP_TAG_PREFIX: "group"
     UI_TAG_PREFIX_FLAG: "__"
-
-######################################################################
-#   Volume name and path for host machine mount to analytic pods   
-#
-persistentvolume:
-  path: "/home/docker/data"
-  capacity: 2Gi
-  requests: 1Gi
 
 #################################
 # Values for the postgres resource
@@ -204,8 +181,8 @@ postgres:
 entroq:
   port: 37706
 
-################################################## 
-# Configurable condition for the autoscaler subchart
+##################################################
+# Configurable condition for the autoscaler templates
 #
 autoscaler:
   enabled: false
@@ -213,9 +190,27 @@ autoscaler:
 ######################################################
 # Credentials for accessing the medifor docker registry
 # These can either be hardcoded or passed in on 'helm install'
+#
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
-  username: 
-  password: 
-  email: 
+  username:
+  password:
+  email:
 
+###################################
+# Default Persistence Configuration
+# The medifor-data-pvc and the postgres-pvc will use the cluster's default storage class if
+# `storageClass:` is undefined
+#
+# Otherwise you can create your own custom storage class and define it as
+# `storageClass: <customStorageClassName>`
+#
+persistence:
+  medifor:
+    # storageClass:
+    accessMode: ReadWriteMany
+    size: 2Gi
+  postgres:
+    # storageClass:
+    accessMode: ReadWriteOnce
+    size: 5Gi
