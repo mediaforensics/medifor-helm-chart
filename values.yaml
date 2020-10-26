@@ -4,7 +4,7 @@
 ###############################################################
 # The namespace that will contain the medifor resources
 #
-namespace : medifor-mini
+namespace: medifor-mini
 
 ###################################
 # Flag to enable/disable Prometheus
@@ -78,7 +78,7 @@ analytics:
 fusers:
   - id: ta2avg
     name: Image Averaging Fusion
-    description:  Averages all analytic input scores available to calculate score
+    description: Averages all analytic input scores available to calculate score
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
@@ -105,7 +105,7 @@ analyticmounts:
 
 ####################################################################################
 #   The analytic worker that will be use for all analytic and analytic workflow pods
-#   
+#
 #   id - ID for the analytic worker
 #   version - Version for the analytic worker which also serves as the docker image tag
 #   config_mount - Location in the analyticworker container where the analytic configuration file will be mounted
@@ -113,21 +113,21 @@ analyticmounts:
 #   ports - Ports the analytic worker container will listen on
 #
 analyticworker:
-    id: analyticworkfow
-    version: develop
-    config_mount: /mnt/config/analytic_config.json
-    container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker:develop
-    ports:
-      grpc:
-        port_number: 50051
-      http:
-        port_number: 50052
-      prometheus:
-        port_number: 2112
+  id: analyticworkfow
+  version: develop
+  config_mount: /mnt/config/analytic_config.json
+  container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker:develop
+  ports:
+    grpc:
+      port_number: 50051
+    http:
+      port_number: 50052
+    prometheus:
+      port_number: 2112
 
 ###################################################################
-#   The values and environment variables for the medifor-ui container 
-# 
+#   The values and environment variables for the medifor-ui container
+#
 #   name - Name for the UI resource
 #   container - URL for the docker image for the UI container
 #   port - Port that the UI container will expose inside the pod
@@ -147,6 +147,9 @@ ui:
   name: medifor-ui
   container: gitlab-registry.mediforprogram.com/medifor/medifor-demo-ui:develop
   port: 3000
+  service:
+    type: NodePort
+    nodePort: 30000
   env:
     CONTAINER_ROOT: "/medifor"
     WORKFLOW_HOST: "analyticworkflow"
@@ -178,7 +181,7 @@ postgres:
 entroq:
   port: 37706
 
-################################################## 
+##################################################
 # Configurable condition for the autoscaler templates
 #
 autoscaler:
@@ -190,9 +193,9 @@ autoscaler:
 #
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
-  username: 
-  password: 
-  email: 
+  username:
+  password:
+  email:
 
 ###################################
 # Default Persistence Configuration
@@ -204,13 +207,10 @@ registrycredentials:
 #
 persistence:
   medifor:
-    # storageClass: 
+    # storageClass:
     accessMode: ReadWriteMany
     size: 2Gi
   postgres:
-    # storageClass: 
+    # storageClass:
     accessMode: ReadWriteOnce
     size: 5Gi
-
-
-
