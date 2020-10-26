@@ -85,12 +85,7 @@ Persistent Volume Claims are used to maintain the data across deployments. This 
 
 If running your cluster on microK8s you may need to **[enable the default storage class](https://igy.cx/posts/setup-microk8s-rbac-storage/).** <br/>
 
-<<<<<<< HEAD
-If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance\*
-=======
 If you are running in minikube then your data will be hosted in `/tmp` and it is recommended that you mount a directory from your host machine into the minikube instance.
-
-> > > > > > > 76f21a8faf76d182bd6ace9d2c43607b4f9b6e94
 
 ## Troubleshooting
 
