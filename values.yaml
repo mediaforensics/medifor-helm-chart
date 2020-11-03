@@ -12,9 +12,9 @@ namespace: medifor-mini
 #
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
-  username:
-  password:
-  email:
+  username: 
+  password: 
+  email: 
 
 ###################################
 # Flag to enable/disable Prometheus
@@ -123,7 +123,7 @@ analyticmounts:
 #   ports - Ports the analytic worker container will listen on
 #
 analyticworker:
-  id: analyticworkfow
+  id: analyticworkflow
   version: develop
   config_mount: /mnt/config/analytic_config.json
   container: gitlab-registry.mediforprogram.com/medifor/analytic-worker/analyticworker:develop
