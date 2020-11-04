@@ -7,7 +7,7 @@ Custom configuration may be needed depending on your specific cluster setup.
 
 For development instructions see **[here](docs/development.md).**
 
-## Prerequisities
+## Prerequisites
 
 - Kubernetes Cluster 1.10+
 - Helm 3.0.0+
