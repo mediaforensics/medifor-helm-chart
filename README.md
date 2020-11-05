@@ -81,7 +81,7 @@ $ helm uninstall medifor
 
 ## Persistence
 
-Persistent Volume Claims are used to maintain the data across deployments. This system uses the default storage classes provided with your cluster and is verified to work on GCE, AWS and minikube.
+Persistent Volume Claims are used to maintain the data across deployments. This system uses the default storage classes provided with your cluster and is verified to work on GKE, EKS and minikube.
 
 If running your cluster on microK8s you may need to **[enable the default storage class](https://igy.cx/posts/setup-microk8s-rbac-storage/).** <br/>
 
