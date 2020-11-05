@@ -197,7 +197,7 @@ For more info on helm install see [here](https://helm.sh/docs/helm/helm_install/
 
 ## Persistence
 
-Persistent Volume Claims are used to maintain the data across deployments. This system uses the default storage classes provided with your cluster and is verified to work on GCE, AWS and minikube. If you would like to provide your own storage then please populate the storageClass values in `values.yml` and create your own storage class resources files.
+Persistent Volume Claims are used to maintain the data across deployments. This system uses the default storage classes provided with your cluster and is verified to work on GKE, EKS and minikube. If you would like to provide your own storage then please populate the storageClass values in `values.yml` and create your own storage class resources files.
 
 ```yaml
 persistence:
