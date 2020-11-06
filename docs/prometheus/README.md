@@ -26,7 +26,7 @@ $ helm install prometheus prometheus-community/kube-prometheus-stack
 For more information, visit the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) repository.
 
 ### Update Your Medifor Release
-Now that Prometheus is running on the cluster you can update your `medifor` helm release to create the analytic services and servic monitors which expose the metrics endpoints to Prometheus.
+Now that Prometheus is running on the cluster you can update your `medifor` helm release to create the analytic services and service monitors which expose the metrics endpoints to Prometheus.
 ```bash
 $ helm upgrade --set prometheus.enabled=true medifor <medifor-helm-chart path>
 ```
@@ -38,34 +38,35 @@ You'll want to check that the services for the analytic metrics were created.
 $ kubectl --namespace=<medifor-namespace> get services
 
 NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-analyticworkflow   ClusterIP   10.104.207.102   <none>        50051/TCP        11m
-ela-base-metrics   ClusterIP   10.100.51.161    <none>        2112/TCP         2m53s
-eqmedifor          ClusterIP   10.108.223.183   <none>        37706/TCP        11m
-exif-metrics       ClusterIP   10.108.106.22    <none>        2112/TCP         2m53s
-medifor-demo-ui    NodePort    10.107.178.35    <none>        3000:30000/TCP   11m
-pgmedifor          ClusterIP   None             <none>        5432/TCP         11m
+analyticworkflow   ClusterIP   10.109.13.158    <none>        50051/TCP            11m
+ela-base-metrics   ClusterIP   10.102.93.150    <none>        2112/TCP             5m58s
+eqmedifor          ClusterIP   10.100.142.199   <none>        37706/TCP,8080/TCP   10s
+exif-metrics       ClusterIP   10.97.49.240     <none>        2112/TCP             5m58s
+medifor-ui         NodePort    10.100.251.0     <none>        3000:30000/TCP       11m
+pgmedifor          ClusterIP   None             <none>        5432/TCP             11m
 ```
-All analytics in the system should have a service with a name `analyticname-metrics`. These services are what communicate with the prometheus service monitors.
+All analytics in the system should have a service with a name `analyticname-metrics`, they will also have service monitors of the same name `-monitor` appended. These services are what communicate with the prometheus service monitors.
 
 ```bash
 $ kubectl get servicemonitoras
 
 NAME                                                 AGE
-ela-base-metrics                                     4m38s
-exif-metrics                                         4m38s
-prometheus-kube-prometheus-alertmanager              6m21s
-prometheus-kube-prometheus-apiserver                 6m21s
-prometheus-kube-prometheus-coredns                   6m21s
-prometheus-kube-prometheus-grafana                   6m21s
-prometheus-kube-prometheus-kube-controller-manager   6m21s
-prometheus-kube-prometheus-kube-etcd                 6m21s
-prometheus-kube-prometheus-kube-proxy                6m21s
-prometheus-kube-prometheus-kube-scheduler            6m21s
-prometheus-kube-prometheus-kube-state-metrics        6m21s
-prometheus-kube-prometheus-kubelet                   6m21s
-prometheus-kube-prometheus-node-exporter             6m21s
-prometheus-kube-prometheus-operator                  6m21s
-prometheus-kube-prometheus-prometheus                6m21s
+ela-base-metrics-monitor                             12s
+eqmedifor-metrics-monitor                            12s
+exif-metrics-monitor                                 12s
+prometheus-kube-prometheus-alertmanager              98s
+prometheus-kube-prometheus-apiserver                 98s
+prometheus-kube-prometheus-coredns                   98s
+prometheus-kube-prometheus-grafana                   98s
+prometheus-kube-prometheus-kube-controller-manager   98s
+prometheus-kube-prometheus-kube-etcd                 98s
+prometheus-kube-prometheus-kube-proxy                98s
+prometheus-kube-prometheus-kube-scheduler            98s
+prometheus-kube-prometheus-kube-state-metrics        98s
+prometheus-kube-prometheus-kubelet                   98s
+prometheus-kube-prometheus-node-exporter             98s
+prometheus-kube-prometheus-operator                  98s
+prometheus-kube-prometheus-prometheus                98s
 ```
 
 <br />
@@ -93,7 +94,7 @@ $ kubectl port-forward service/prometheus-kube-prometheus-prometheus 9090:9090
 ### Grafana
 Expose Grafana service
 ```bash
-$ kubectl port-forward servive/promtheus-grafana 80:80
+$ kubectl port-forward service/promtheus-grafana 80:80
 ```
 You will be prompted for a username and password which are defaulted to:
 - Username: admin

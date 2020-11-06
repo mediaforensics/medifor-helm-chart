@@ -189,7 +189,9 @@ postgres:
 # Values for the Entroq resource
 #
 entroq:
-  port: 37706
+  ports:
+    grpc: 37706
+    metrics: 8080
 
 ##################################################
 # Configurable condition for the autoscaler templates
