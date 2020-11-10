@@ -7,7 +7,7 @@ Custom configuration may be needed depending on your specific cluster setup.
 
 For development instructions see **[here](docs/development.md).**
 
-## Prerequisities
+## Prerequisites
 
 - Kubernetes Cluster 1.10+
 - Helm 3.0.0+
@@ -110,7 +110,8 @@ The following table lists the configurable parameters of the Medifor Helm Chart 
 | `analyticworker.ports.http.port_number`       | HTTP port for the analyticworker container <br/> **RECOMMEND NOT CHANGING**                                                                                                             | `50052`                                                                                                      |
 | `analyticworker.ports.prometheus.port_number` | Port for prometheus metrics on analyticworker container <br/> **RECOMMEND NOT CHANGING**                                                                                                | `2112`                                                                                                       |
 | `autoscaler.enabled`                          | Boolean flag to turn on/off the autoscaler resource                                                                                                                                     | `false`                                                                                                      |
-| `entroq.port`                                 | Port that the entroq service listens on inside the container <br/> **RECOMMEND NOT CHANGING**                                                                                           | `37706`                                                                                                      |
+| `entroq.ports.grpc`                           | Port that the entroq service listens on inside the container for grpc requests <br/> **RECOMMEND NOT CHANGING**                                                                         | `37706`                                                                                                      |
+| `entroq.ports.metrics`                        | Port that the entroq service listens on inside the container for http requests for prometheus metrics <br/> **RECOMMEND NOT CHANGING**                                                  | `8080`                                                                                                      |
 | `fusers`                                      | List of fusion analytics to run in the system                                                                                                                                           | `ta2-avg` is run by default. Contact your system admin to get access to the analytic repository              |
 | `namespace`                                   | The k8s namespace that will be created for the medifor system resources                                                                                                                 | `false`                                                                                                      |
 | `persistence.medifor.storageClass`            | Name of the medifor-pvc custom storage class resource                                                                                                                                   | `undefined`                                                                                                  |

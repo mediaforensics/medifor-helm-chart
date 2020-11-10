@@ -19,13 +19,15 @@ spec:
       - name: eqmedifor
         image: shiblon/entroq:v0.3
         ports:
-          - containerPort: 37706
+          - containerPort: {{ .Values.entroq.ports.grpc }}
             name: grpc
+          - containerPort: {{ .Values.entroq.ports.metrics }}
+            name: prometheus
         command:
           - "eqpgsvc"
         args:
           - "--dbaddr=pgmedifor"
-          - "--port={{ .Values.entroq.port }}"
+          - "--port={{ .Values.entroq.ports.grpc }}"
           - "--dbuser={{ .Values.postgres.username }}"
           - "--dbname={{ .Values.postgres.database }}"
         resources:
