@@ -3,17 +3,12 @@ entries:
   medifor-helm-chart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-09-29T11:02:46.851635-04:00"
-    dependencies:
-    - condition: autoscaler.enabled
-      name: autoscaler
-      repository: ""
-      version: 0.1.0
+    created: "2020-11-04T13:31:58.500785-05:00"
     description: A Helm chart for the DARPA Medifor System
-    digest: 88173fb3155da89fde58ac2d3039dba713c47b75e75e27f8c069e2c0e2e998e0
+    digest: 48d689db54a5dffcf2c368fe340d8c878de18aa184d940e48b3b558c75419805
     name: medifor-helm-chart
     type: application
     urls:
-    - https://gitlab.mediforprogram.com/NextCentury/medifor-helm-chart/medifor-helm-chart-0.1.0.tgz
-    version: 0.1.0
-generated: "2020-09-29T11:02:46.845777-04:00"
+    - https://gitlab.mediforprogram.com/medifor/medifor-helm-chart/medifor-helm-chart-1.0.0.tgz
+    version: 1.0.0
+generated: "2020-11-04T13:31:58.491022-05:00"

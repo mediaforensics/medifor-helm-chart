@@ -32,7 +32,7 @@ spec:
           - "--pgaddr={{ .Values.postgres.address }}:{{ .Values.postgres.port }}"
           - "--pguser={{ .Values.postgres.username }}"
           - "--pgdb={{ .Values.postgres.database }}"
-          - "--eqaddr=eqmedifor:{{ .Values.entroq.port }}"
+          - "--eqaddr=eqmedifor:{{ .Values.entroq.ports.grpc }}"
           - "--listen=:{{ .Values.analyticworker.ports.grpc.port_number }}"
           - "--num_fanout=5"
           - "--num_outbox=10"

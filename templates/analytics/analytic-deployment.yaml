@@ -60,7 +60,7 @@ spec:
             name: prometheus
         command:
         - "analyticworker"
-        - "--eqaddr=eqmedifor:{{ $ENTROQ.port }}"
+        - "--eqaddr=eqmedifor:{{ $ENTROQ.ports.grpc }}"
         - "--id={{ $analytic.id }}_{{ $analytic.version }}"
         - "--backend=:{{ $WORKER.ports.grpc.port_number }}"
         - "--xin={{ $MOUNTS.input.external }}:{{ $MOUNTS.input.internal }}"

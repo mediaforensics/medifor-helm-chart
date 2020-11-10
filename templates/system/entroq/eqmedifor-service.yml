@@ -2,15 +2,21 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    k8s-app: eqmedifor
+    app: eqmedifor-service
   name: eqmedifor
   namespace: {{ .Values.namespace }}
 spec:
   type: ClusterIP
   ports:
     - name: grpc
-      port: {{ .Values.entroq.port }}
+      port: {{ .Values.entroq.ports.grpc }}
       protocol: TCP
-      targetPort: {{ .Values.entroq.port }}
+      targetPort: {{ .Values.entroq.ports.grpc }}
+    {{- if .Values.prometheus.enabled }}
+    - name: prometheus
+      port: {{ .Values.entroq.ports.metrics }}
+      protocol: TCP
+      targetPort: prometheus
+    {{- end }}
   selector:
     app: eqmedifor

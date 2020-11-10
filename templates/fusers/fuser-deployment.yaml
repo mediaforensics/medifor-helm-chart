@@ -56,7 +56,7 @@ spec:
         name: worker
         command:
         - "fusionworker"
-        - "--eqaddr=eqmedifor:{{ $ENTROQ.port }}"
+        - "--eqaddr=eqmedifor:{{ $ENTROQ.ports.grpc }}"
         - "--id={{ $fuser.id }}_{{ $fuser.version }}"
         - "--backend=:{{ $WORKER.ports.grpc.port_number }}"
         - "--xin={{ $MOUNTS.input.external }}:{{ $MOUNTS.input.internal }}"
