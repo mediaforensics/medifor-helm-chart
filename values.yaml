@@ -3,7 +3,7 @@
 
 ###############################################################
 # The namespace that will contain the medifor resources
-#
+# test
 namespace: medifor
 
 ######################################################
@@ -12,9 +12,9 @@ namespace: medifor
 #
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
-  username: 
-  password: 
-  email: 
+  username:
+  password:
+  email:
 
 ###################################
 # Flag to enable/disable Prometheus
