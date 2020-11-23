@@ -4,7 +4,7 @@
 ###############################################################
 # The namespace that will contain the medifor resources
 #
-namespace: medifor-mini
+namespace: medifor
 
 ######################################################
 # Credentials for accessing the medifor docker registry

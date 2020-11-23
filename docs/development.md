@@ -154,7 +154,7 @@ To learn more about the release, try:
 To check the status of the pod deployment
 
 ```bash
-kubectl --namespace=medifor-mini get pods
+kubectl --namespace=medifor get pods
 ```
 
 If successful you should see something similar to the following. _NOTE: If spinning up pods for the first time this can take a while._
@@ -183,7 +183,7 @@ For example, if you wanted to change the value of a specfic element in `values.y
 helm install --set namespace=new-namespace medifor .
 ```
 
-This will change the `namespace` field in `values.yml` from _medifor-mini_ to _new-namespace_ in the `medifor` helm release.
+This will change the `namespace` field in `values.yml` from _medifor_ to _new-namespace_ in the `medifor` helm release.
 
 You can also override values by providing a file to to helm install with the `-f` flag.
 
@@ -216,8 +216,8 @@ Dynamically allocated Persisent Volumes default to a reclaim policy of 'Delete',
 ```bash
 $ kubectl get pv
 NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                           STORAGECLASS   REASON   AGE
-pvc-0541deb9-fe88-4ced-aa18-d840bc2caf8a   5Gi        RWO            Delete           Bound    medifor-mini/postgres-pvc       standard                2m19s
-pvc-ba4ebe21-3be1-4adc-afe4-27cb75080c2a   2Gi        RWX            Delete           Bound    medifor-mini/medifor-data-pvc   standard                2m19s
+pvc-0541deb9-fe88-4ced-aa18-d840bc2caf8a   5Gi        RWO            Delete           Bound    medifor/postgres-pvc       standard                2m19s
+pvc-ba4ebe21-3be1-4adc-afe4-27cb75080c2a   2Gi        RWX            Delete           Bound    medifor/medifor-data-pvc   standard                2m19s
 
 $ kubectl patch pv <pvc-0541deb9-fe88-4ced-aa18-d840bc2caf8a> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
 $ kubectl patch pv <pvc-ba4ebe21-3be1-4adc-afe4-27cb75080c2a> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
