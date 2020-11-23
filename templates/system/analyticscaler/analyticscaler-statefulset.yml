@@ -26,6 +26,6 @@ spec:
           image: "gitlab-registry.mediforprogram.com/medifor/autoscaler:develop"
           imagePullPolicy: Always
           args:
-            - "--eqaddr=eqmedifor:{{ .Values.entroq.port.grpc }}"
+            - "--eqaddr=eqmedifor:{{ .Values.entroq.ports.grpc }}"
             - "--namespace={{ .Values.namespace }}"
 {{ end }}
