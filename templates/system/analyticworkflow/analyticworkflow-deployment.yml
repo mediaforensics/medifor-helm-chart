@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         app: {{ .Values.analyticworker.id }}
+      annotations:
+        rollingupdate: {{ randAlphaNum 5 | quote}} # Redeploy on every 'helm upgrade'
     spec:
       restartPolicy: Always
       imagePullSecrets:

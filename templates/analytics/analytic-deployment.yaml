@@ -44,7 +44,6 @@ spec:
           requests:
             cpu: {{ $analytic.resources.requests.cpu}}
             memory: {{ $analytic.resources.requests.mem}}
-            nvidia.com/gpu: {{ $analytic.resources.requests.gpu }}
         volumeMounts:
           - mountPath: {{ $MOUNTS.output.internal }}
             name: medifor-data
@@ -70,11 +69,9 @@ spec:
           limits:
             cpu: 500m
             memory: 512Mi
-            nvidia.com/gpu: 0
           requests:
             cpu: 500m    
             memory: 512Mi
-            nvidia.com/gpu: 0
       imagePullSecrets:
       - name : medifor-registry-token
       restartPolicy: Always

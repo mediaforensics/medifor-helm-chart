@@ -56,7 +56,7 @@ $ helm install medifor .
 Verify that all pods are running and containers have been created. If status is _ImagePullBackOff_ then there is an error with credentials.
 
 ```bash
-$ kubectl --namespace=medifor-mini get pods
+$ kubectl --namespace=medifor get pods
 ```
 
 ### Expose UI Service
@@ -68,7 +68,7 @@ If you want to set up load balancing or use an ingress controller then custom co
 Expose the UI Service on the minikube cluster to your local machine.
 
 ```bash
-$ minikube service medifor-ui -n medifor-mini
+$ minikube service medifor-ui -n medifor
 ```
 
 ## Uninstallation
@@ -113,7 +113,7 @@ The following table lists the configurable parameters of the Medifor Helm Chart 
 | `entroq.ports.grpc`                           | Port that the entroq service listens on inside the container for grpc requests <br/> **RECOMMEND NOT CHANGING**                                                                         | `37706`                                                                                                      |
 | `entroq.ports.metrics`                        | Port that the entroq service listens on inside the container for http requests for prometheus metrics <br/> **RECOMMEND NOT CHANGING**                                                  | `8080`                                                                                                      |
 | `fusers`                                      | List of fusion analytics to run in the system                                                                                                                                           | `ta2-avg` is run by default. Contact your system admin to get access to the analytic repository              |
-| `namespace`                                   | The k8s namespace that will be created for the medifor system resources                                                                                                                 | `false`                                                                                                      |
+| `namespace`                                   | The k8s namespace that will be created for the medifor system resources                                                                                                                 | `medifor`                                                                                                      |
 | `persistence.medifor.storageClass`            | Name of the medifor-pvc custom storage class resource                                                                                                                                   | `undefined`                                                                                                  |
 | `persistence.medifor.accessMode`              | Access mode for the medifor-pvc                                                                                                                                                         | `ReadWriteMany`                                                                                              |
 | `persistence.medifor.size`                    | Size of the medifor-pvc                                                                                                                                                                 | `2Gi`                                                                                                        |

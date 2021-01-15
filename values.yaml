@@ -3,8 +3,18 @@
 
 ###############################################################
 # The namespace that will contain the medifor resources
+# test
+namespace: medifor
+
+######################################################
+# Credentials for accessing the medifor docker registry
+# These can either be hardcoded or passed in on 'helm install'
 #
-namespace: medifor-mini
+registrycredentials:
+  registry: https://gitlab-registry.mediforprogram.com
+  username:
+  password:
+  email:
 
 ######################################################
 # Credentials for accessing the medifor docker registry
