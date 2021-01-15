@@ -16,6 +16,16 @@ registrycredentials:
   password:
   email:
 
+######################################################
+# Credentials for accessing the medifor docker registry
+# These can either be hardcoded or passed in on 'helm install'
+#
+registrycredentials:
+  registry: https://gitlab-registry.mediforprogram.com
+  username: 
+  password: 
+  email: 
+
 ###################################
 # Flag to enable/disable Prometheus
 # If enable then helm will create template for analytic services and service monitors
