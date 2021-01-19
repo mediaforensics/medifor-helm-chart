@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   {{- if .Values.persistence.postgres.storageClass }}
-  storageClassName: {{ .Values.perssistence.postgres.storageClass }}
+  storageClassName: {{ .Values.persistence.postgres.storageClass }}
   {{- end }}
   accessModes:
     - {{ .Values.persistence.postgres.accessMode | quote}}
