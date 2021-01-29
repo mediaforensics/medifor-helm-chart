@@ -3,6 +3,7 @@
 {{ $NAMESPACE := .Values.namespace }}
 {{ $REPLICAS := .Values.replicas }}
 {{ $ENTROQ := .Values.entroq }}
+{{ $REMOTEDEPLOY := .Values.remotedeploy }}
 {{- range $fuser := .Values.fusers }}
 apiVersion: apps/v1
 kind: Deployment
@@ -28,7 +29,9 @@ spec:
     spec:
       containers:
       - image: "{{ $fuser.container }}"
+        {{- if not $REMOTEDEPLOY }}
         imagePullPolicy: Always
+        {{- end }}
         name: analytic
         ports:
           - containerPort: {{ $WORKER.ports.grpc.port_number }}
@@ -52,7 +55,9 @@ spec:
             name: medifor-data
             subPath: input
       - image: "{{ $WORKER.container }}"
+        {{- if not $REMOTEDEPLOY }}
         imagePullPolicy: Always
+        {{- end }}
         name: worker
         command:
         - "fusionworker"

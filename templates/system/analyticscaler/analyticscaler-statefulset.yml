@@ -24,7 +24,9 @@ spec:
       containers:
         - name: analyticscaler
           image: "gitlab-registry.mediforprogram.com/medifor/autoscaler:develop"
+          {{- if not .Values.remotedeploy }}
           imagePullPolicy: Always
+          {{- end }}
           args:
             - "--eqaddr=eqmedifor:{{ .Values.entroq.ports.grpc }}"
             - "--namespace={{ .Values.namespace }}"
