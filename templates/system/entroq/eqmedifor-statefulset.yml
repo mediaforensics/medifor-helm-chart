@@ -18,6 +18,9 @@ spec:
       containers:
       - name: eqmedifor
         image: shiblon/entroq:v0.3
+        {{- if not .Values.remotedeploy }}
+        imagePullPolicy: Always
+        {{- end }}
         ports:
           - containerPort: {{ .Values.entroq.ports.grpc }}
             name: grpc

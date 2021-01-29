@@ -27,6 +27,9 @@ spec:
       containers:
       - name: ui
         image: {{ .Values.ui.container }}
+        {{- if not .Values.remotedeploy }}
+        imagePullPolicy: Always
+        {{- end }}
         ports:
           - containerPort: {{ .Values.ui.port }}
             name: http
