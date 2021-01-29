@@ -16,6 +16,9 @@ spec:
     spec:
       containers:
       - image: "postgres:11"
+        {{- if not .Values.remotedeploy }}
+        imagePullPolicy: Always
+        {{- end }}
         name: pgmedifor
         env:
           - name: POSTGRES_PASSWORD
