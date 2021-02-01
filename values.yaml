@@ -52,7 +52,7 @@ analytics:
   - id: ela-base
     name: Error Level Analysis
     description: Identifying areas within an image that are at different compression levels
-    container: 10.102.61.42/ela-base
+    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_ela-base:2019-11-14T17-17-26f378000
     version: prod2020-03
     media: ["IMAGE", "VIDEO"]
     resources:
