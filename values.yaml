@@ -3,8 +3,14 @@
 
 ###############################################################
 # The namespace that will contain the medifor resources
-# test
+#
 namespace: medifor
+
+############################################################################################
+# Flag whethere or not the system is being deployed on remote instance without internet access
+# Affects how containers are pulled for pods
+#
+remotedeploy: false
 
 ######################################################
 # Credentials for accessing the medifor docker registry
@@ -46,7 +52,7 @@ analytics:
   - id: ela-base
     name: Error Level Analysis
     description: Identifying areas within an image that are at different compression levels
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_ela-base:2019-11-14T17-17-26f378000
+    container: 10.102.61.42/ela-base
     version: prod2020-03
     media: ["IMAGE", "VIDEO"]
     resources:

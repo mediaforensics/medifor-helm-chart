@@ -21,7 +21,9 @@ spec:
       containers:
       - name: workflow
         image: "{{ .Values.analyticworker.container }}" # ID: 724e52c95
+        {{- if not .Values.remotedeploy }}
         imagePullPolicy: Always
+        {{- end }}
         ports:
           - containerPort: {{ .Values.analyticworker.ports.grpc.port_number }}
             name: grpc

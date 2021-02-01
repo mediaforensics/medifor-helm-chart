@@ -3,6 +3,7 @@
 {{ $NAMESPACE := .Values.namespace }}
 {{ $REPLICAS := .Values.replicas }}
 {{ $ENTROQ := .Values.entroq }}
+{{ $REMOTEDEPLOY := .Values.remotedeploy }}
 {{- range $analytic := .Values.analytics }}
 apiVersion: apps/v1
 kind: Deployment
@@ -29,7 +30,9 @@ spec:
     spec:
       containers:
       - image: "{{ $analytic.container }}"
+        {{- if not $REMOTEDEPLOY }}
         imagePullPolicy: Always
+        {{- end }}
         name: analytic
         ports:
           - containerPort: {{ $WORKER.ports.grpc.port_number }}
@@ -52,10 +55,12 @@ spec:
             name: medifor-data
             subPath: input
       - image: "{{ $WORKER.container }}"
+        {{- if not $REMOTEDEPLOY }}
         imagePullPolicy: Always
+        {{- end }}
         name: worker
         ports: 
-          - containerPort: {{$WORKER.ports.prometheus.port_number}}
+          - containerPort: {{ $WORKER.ports.prometheus.port_number }}
             name: prometheus
         command:
         - "analyticworker"
