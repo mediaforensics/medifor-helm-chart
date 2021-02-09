@@ -18,6 +18,7 @@ analytics:
     name: CNN-based GAN Detector
     description: USCISI - A supervised CNN-based approach for the detection of GAN generated images. It is trained using differents GAN architectures (image generation, image translation and style-transfer).
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/uscisi__ta11_s_gan__detector_s_cnn:2019-09-13T00-48-08f492537
+    version: prod2020-03
     media: ["IMAGE"]
     resources:
       requests:
@@ -32,6 +33,7 @@ analytics:
     name: Holistic Multi Class Image
     description: Kitware - Holistic detector for generic image manipulations. Classifying a probe image into four categories of Original, Synthetic(GAN), Local and Global.
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/kitware_s_reflection-authentication_s_release_s_holistic20x4:2020-01-29T23-18-59f464000
+    version: prod2020-03
     media: ["IMAGE"]
     resources:
       requests:
@@ -46,6 +48,7 @@ analytics:
     name: Facial Expression Manipulation
     description: Kitware Berkeley - This is a method for detecting facial warps to the parts of a face created by Adobe Photoshop.
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/kitware_s_kitware-berkeley__facial-expression:2019-08-02T23-19-33f641000
+    version: prod2020-03
     media: ["IMAGE"]
     resources:
       requests:
@@ -60,6 +63,7 @@ analytics:
     name: CNN Detector Via ProGAN
     description: Kitware Berkeley - Detector of CNN-generated imagery, trained on a ProGAN
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/kitware_s_kitware-berkeley__cnn-detector-via-progan:prod2020-03
+    version: prod2020-03
     media: ["IMAGE"]
     resources:
       requests:

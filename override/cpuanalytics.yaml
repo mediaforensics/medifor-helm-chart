@@ -243,6 +243,7 @@ analytics:
     name: Structure-Based Integrity Verification
     description: Unifi - Video integrity is assessed based on a dataset of reference video containers. When possible, the most plausible video origin is also produced.
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/unifi-fence_s_unifi__ed209:2019-09-04T10-59-29f055000
+    version: prod2020-03
     media: ["VIDEO"]
     resources:
       requests:
@@ -257,6 +258,7 @@ analytics:
     name: Bispectrum Voice Analysis
     description: Kitware UAlbany - Detect if a voice source is a human, Amazon Alexa, Apple, Baidu, or Wavenet. Uses bispectrum analysis of audio files.
     container: gitlab-registry.mediforprogram.com/kitware/ualbany-ucb_bispectrum-audio:latest
+    version: prod2020-03
     media: ["VIDEO"]
     resources:
       requests:
@@ -271,6 +273,7 @@ analytics:
     name: DeepFake Orientation Video
     description: Kitware UAlbany - An approach to expose DeepFake facial videos by analyzing the signature in face orientation estimation.
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/kitware_s_ualbany-headpose-forensic:2019-03-22T23-14-13f299000
+    version: prod2020-03
     media: ["VIDEO"]
     resources:
       requests:
@@ -285,6 +288,7 @@ analytics:
     name: CNN-based Video Face Forgery Detector
     description: USCISI Ta11 - A supervised CNN-based approach for the detection of video deepfakes. A automatic approach is used to localize the faces, then each face is classified by the CNN.
     container: gitlab-registry.mediforprogram.com/medifor/program-registry/uscisi__ta11_s_face__cnn__video:2019-09-12T17-27-14f027164
+    version: prod2020-03
     media: ["VIDEO"]
     resources:
       requests:

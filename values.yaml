@@ -18,9 +18,9 @@ remotedeploy: false
 #
 registrycredentials:
   registry: https://gitlab-registry.mediforprogram.com
-  username:
-  password:
-  email:
+  username: wdingman
+  password: Xk19Q7q2vgN91fr_FaoW
+  email: wesley.dingman@caci.com
 
 ###################################
 # Flag to enable/disable Prometheus
