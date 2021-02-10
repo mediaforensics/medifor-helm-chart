@@ -2,7 +2,7 @@ fusers:
   - id: ta2avg
     name: Image Averaging Fusion
     description: Averages all analytic input scores available to calculate score
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
+    container: registry.semaforprogam.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
@@ -17,7 +17,7 @@ fusers:
   - id: ta2-combo
     name: Boosted Manipulation Detection
     description: Identifies manipulated media (both images and videos) trained on demo VIP image analytic list boosting the most accurate scores based on the varying patterns of the analytics results
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-16T16-44-24f533000
+    container: registry.semaforprogam.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-16T16-44-24f533000
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
@@ -32,7 +32,7 @@ fusers:
   - id: tauo
     name: Overall Image Fusion
     description: University of Oregon boosted fusion. Trained on full analytic list
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/uo_s_fusion:2019-06-24T21-16-58f105000
+    container: registry.semaforprogam.com/medifor/program-registry/uo_s_fusion:2019-06-24T21-16-58f105000
     version: prod2020-03
     media: ["FUSION_IMAGE"]
     resources:
@@ -47,7 +47,7 @@ fusers:
   - id: gan
     name: GAN Fusion
     description: Identifies GAN images based on fused GAN specific analytic results
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-42f909000
+    container: registry.semaforprogam.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-42f909000
     version: prod2020-03
     media: ["FUSION_IMAGE"]
     resources:
@@ -62,7 +62,7 @@ fusers:
   - id: multi
     name: Manipulation Type Estimator
     description: Fusion trained to predict multiple classes based on high level manipulation types
-    container: gitlab-registry.mediforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-16T16-43-51f527000
+    container: registry.semaforprogam.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-16T16-43-51f527000
     version: prod2020-03
     media: ["FUSION_IMAGE"]
     resources:
