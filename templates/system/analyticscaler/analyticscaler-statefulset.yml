@@ -23,7 +23,7 @@ spec:
         - name: "medifor-registry-token"
       containers:
         - name: analyticscaler
-          image: "registry.semaforprogam.com/medifor/autoscaler:develop"
+          image: "registry.semaforprogram.com/medifor/autoscaler:develop"
           {{- if not .Values.remotedeploy }}
           imagePullPolicy: Always
           {{- end }}

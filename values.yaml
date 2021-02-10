@@ -17,7 +17,7 @@ remotedeploy: false
 # These can either be hardcoded or passed in on 'helm install'
 #
 registrycredentials:
-  registry: https://registry.semaforprogam.com
+  registry: https://registry.semaforprogram.com
   username:
   password:
   email:
@@ -67,7 +67,7 @@ analytics:
   - id: exif
     name: Baseline Analytic Exif
     description: Baseline Analytic Exif Description
-    container: registry.semaforprogam.com/medifor/program-registry/medifor_s_baseline-analytic-exif:prod2020-03
+    container: registry.semaforprogram.com/medifor/program-registry/medifor_s_baseline-analytic-exif:prod2020-03
     version: prod2020-03
     media: ["IMAGE"]
     resources:
@@ -95,7 +95,7 @@ fusers:
   - id: ta2avg
     name: Image Averaging Fusion
     description: Averages all analytic input scores available to calculate score
-    container: registry.semaforprogam.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
+    container: registry.semaforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
@@ -132,7 +132,7 @@ analyticworker:
   id: analyticworkflow
   version: develop
   config_mount: /mnt/config/analytic_config.json
-  container: registry.semaforprogam.com/medifor/analytic-worker/analyticworker:develop
+  container: registry.semaforprogram.com/medifor/analytic-worker/analyticworker:develop
   ports:
     grpc:
       port_number: 50051
@@ -161,7 +161,7 @@ analyticworker:
 
 ui:
   name: medifor-ui
-  container: registry.semaforprogam.com/medifor/medifor-ui:develop
+  container: registry.semaforprogram.com/medifor/medifor-ui:develop
   port: 3000
   service:
     type: NodePort

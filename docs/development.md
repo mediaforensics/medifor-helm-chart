@@ -26,7 +26,7 @@ Pulling the various docker images from the Medifor docker registry requires the 
 
 ```yaml
 registrycredentials:
-  registry: https://registry.semaforprogam.com
+  registry: https://registry.semaforprogram.com
   username: <GITLAB_USERNAME>
   password: <REGISTRY_TOKEN>
   email: <MEDIFOR_EMAIL>
@@ -75,7 +75,7 @@ analytics:
   - id: ela-base
     name: Error Level Analysis
     description: Identifying areas within an image that are at different compression levels
-    container: registry.semaforprogam.com/medifor/program-registry/nextcentury_s_ela-base:2019-11-14T17-17-26f378000
+    container: registry.semaforprogram.com/medifor/program-registry/nextcentury_s_ela-base:2019-11-14T17-17-26f378000
     version: prod2020-03
     media: ["IMAGE", "VIDEO"]
     resources:
