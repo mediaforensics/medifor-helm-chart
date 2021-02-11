@@ -12,33 +12,13 @@ For development instructions see **[here](docs/development.md).**
 - Kubernetes Cluster 1.10+
 - Helm 3.0.0+
 
-### Generate Gitlab Token
-
-1.  Navigate to [this page](https://gitlab.mediforprogram.com/profile/personal_access_tokens) to generate a new personal
-    access token to the MediFor gitlab.
-2.  Name the token `medifor-registry-token`, leave the expiration date blank, limit the
-    scop to `read_repository` and `read_registry` then create the personal access token.
-3.  Save the generated token somewhere safe.
-
 ## Installation
 
 ### Add Helm Chart
 
 ```bash
-$ git clone https://gitlab.mediforprogram.com/medifor/medifor-helm-chart.git
+$ git clone https://github.com/mediaforensics/medifor-helm-chart.git
 $ cd medifor-helm-chart
-```
-
-### Add Credentials
-
-Add your credentials in `values.yaml` and save.
-
-```yaml
-registrycredentials:
-  registry: https://registry.semaforprogram.com
-  username: <GITLAB_USERNAME>
-  password: <REGISTRY_TOKEN>
-  email: <MEDIFOR_EMAIL>
 ```
 
 ### Deploy Chart
@@ -125,7 +105,6 @@ The following table lists the configurable parameters of the Medifor Helm Chart 
 | `postgres.username`                           | Postgres username                                                                                                                                                                       | `postgres`                                                                                                   |
 | `postgres.database`                           | Postgres password                                                                                                                                                                       | `postgres`                                                                                                   |
 | `postgres.port`                               | Port that postgress listens on inside the container                                                                                                                                     | `5432`                                                                                                       |
-| `registrycredentials`                         | These are your credentials for the gitlab registry                                                                                                                                      | See above documentation                                                                                      |
 | `remotedeploy`                                | Boolean flag whether or not the system is being deploy on a remote instance with internet connectivity                                                                                  | `false`                                                                                                      |
 | `replicas.ui`                                 | Number of pods to create for UI Deployment                                                                                                                                              | `1`                                                                                                          |
 | `replicas.fusion`                             | Number of pods to create for each Fusion Deployment                                                                                                                                     | `1`                                                                                                          |

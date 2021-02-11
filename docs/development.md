@@ -20,18 +20,6 @@ mychart/
 - **charts/** - Directory that contains other charts, known as _subcharts_, which this chart depends on. Subcharts must be able to exist independently
   from their parent chart.
 
-### Adding your credentials
-
-Pulling the various docker images from the Medifor docker registry requires the use of an imagePullSecret when working with Kubernetes. The easiest way to add your credentials would be to edit the `values.yaml` file to include them. When templates are rendered these values will be used in the `secret.yaml` file.
-
-```yaml
-registrycredentials:
-  registry: https://registry.semaforprogram.com
-  username: <GITLAB_USERNAME>
-  password: <REGISTRY_TOKEN>
-  email: <MEDIFOR_EMAIL>
-```
-
 ### Working with the templates
 
 Every template defines a kubernetes resource file and every template that exists within the `templates/` directory will be created on `helm install`. When helm generates the templates it will pull the default values from `values.yaml` to populate the templates. Each template is provide the top level scope of the `values.yaml` file by default.
@@ -75,7 +63,7 @@ analytics:
   - id: ela-base
     name: Error Level Analysis
     description: Identifying areas within an image that are at different compression levels
-    container: registry.semaforprogram.com/medifor/program-registry/nextcentury_s_ela-base:2019-11-14T17-17-26f378000
+    container: docker.pkg.github.com/mediaforensics/packages/ela:latest
     version: prod2020-03
     media: ["IMAGE", "VIDEO"]
     resources:

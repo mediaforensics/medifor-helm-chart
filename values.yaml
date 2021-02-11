@@ -12,16 +12,6 @@ namespace: medifor
 #
 remotedeploy: false
 
-######################################################
-# Credentials for accessing the medifor docker registry
-# These can either be hardcoded or passed in on 'helm install'
-#
-registrycredentials:
-  registry: https://registry.semaforprogram.com
-  username:
-  password:
-  email:
-
 ###################################
 # Flag to enable/disable Prometheus
 # If enable then helm will create template for analytic services and service monitors
@@ -52,7 +42,7 @@ analytics:
   - id: ela-base
     name: Error Level Analysis
     description: Identifying areas within an image that are at different compression levels
-    container: registry.semaforprogram.com/medifor/program-registry/nextcentury_s_ela-base:prod2020-03
+    container: docker.pkg.github.com/mediaforensics/packages/ela:latest
     version: prod2020-03
     media: ["IMAGE", "VIDEO"]
     resources:
@@ -67,7 +57,7 @@ analytics:
   - id: exif
     name: Baseline Analytic Exif
     description: Baseline Analytic Exif Description
-    container: registry.semaforprogram.com/medifor/program-registry/medifor_s_baseline-analytic-exif:prod2020-03
+    container: docker.pkg.github.com/mediaforensics/packages/exif:latest
     version: prod2020-03
     media: ["IMAGE"]
     resources:
@@ -95,7 +85,7 @@ fusers:
   - id: ta2avg
     name: Image Averaging Fusion
     description: Averages all analytic input scores available to calculate score
-    container: registry.semaforprogram.com/medifor/program-registry/nextcentury_s_fusion-container:2019-12-12T19-54-07f733000
+    container: docker.pkg.github.com/mediaforensics/packages/ta2avg:latest
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
@@ -132,7 +122,7 @@ analyticworker:
   id: analyticworkflow
   version: develop
   config_mount: /mnt/config/analytic_config.json
-  container: registry.semaforprogram.com/medifor/analytic-worker/analyticworker:develop
+  container: docker.pkg.github.com/mediaforensics/packages/analyticworker:latest
   ports:
     grpc:
       port_number: 50051
@@ -161,7 +151,7 @@ analyticworker:
 
 ui:
   name: medifor-ui
-  container: registry.semaforprogram.com/medifor/medifor-ui:develop
+  container: docker.pkg.github.com/mediaforensics/packages/medifor-ui:latest
   port: 3000
   service:
     type: NodePort

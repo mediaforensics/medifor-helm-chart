@@ -3,12 +3,12 @@ entries:
   medifor-helm-chart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-11-04T13:31:58.500785-05:00"
+    created: "2021-02-11T11:20:50.639747-05:00"
     description: A Helm chart for the DARPA Medifor System
     digest: 48d689db54a5dffcf2c368fe340d8c878de18aa184d940e48b3b558c75419805
     name: medifor-helm-chart
     type: application
     urls:
-    - https://gitlab.mediforprogram.com/medifor/medifor-helm-chart/medifor-helm-chart-1.0.0.tgz
+    - https://github.com/mediaforensics/medifor-helm-chart/medifor-helm-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2020-11-04T13:31:58.491022-05:00"
+generated: "2021-02-11T11:20:50.629201-05:00"

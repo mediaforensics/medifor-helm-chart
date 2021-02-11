@@ -23,7 +23,7 @@ spec:
         - name: "medifor-registry-token"
       containers:
         - name: analyticscaler
-          image: "registry.semaforprogram.com/medifor/autoscaler:develop"
+          image: "docker.pkg.github.com/mediaforensics/packages/autoscaler:develop"
           {{- if not .Values.remotedeploy }}
           imagePullPolicy: Always
           {{- end }}
