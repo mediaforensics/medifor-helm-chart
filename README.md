@@ -33,7 +33,7 @@ $ helm install medifor .
 
 ### Check Pods
 
-Verify that all pods are running and containers have been created. If status is _ImagePullBackOff_ then there is an error with credentials.
+Verify that all pods are running and containers have been created.
 
 ```bash
 $ kubectl --namespace=medifor get pods

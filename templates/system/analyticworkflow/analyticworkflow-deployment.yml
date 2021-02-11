@@ -16,8 +16,6 @@ spec:
         rollingupdate: {{ randAlphaNum 5 | quote}} # Redeploy on every 'helm upgrade'
     spec:
       restartPolicy: Always
-      imagePullSecrets:
-        - name: "medifor-registry-token"
       containers:
       - name: workflow
         image: "{{ .Values.analyticworker.container }}" # ID: 724e52c95

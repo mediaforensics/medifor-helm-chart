@@ -18,8 +18,6 @@ spec:
         rollingupdate: {{ randAlphaNum 5 | quote}} # Redeploy on every 'helm upgrade'
     spec:
       restartPolicy: Always
-      imagePullSecrets:
-        - name: medifor-registry-token
       volumes:
         - name: medifor-data
           persistentVolumeClaim:

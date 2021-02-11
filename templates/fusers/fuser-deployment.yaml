@@ -76,8 +76,6 @@ spec:
             cpu: 500m    
             memory: 512Mi
             nvidia.com/gpu: 0
-      imagePullSecrets:
-      - name : medifor-registry-token
       restartPolicy: Always
       volumes:
       - name: medifor-data

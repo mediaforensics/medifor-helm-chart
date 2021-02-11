@@ -19,8 +19,6 @@ spec:
     spec:
       restartPolicy: Always
       serviceAccountName: analyticscaler
-      imagePullSecrets:
-        - name: "medifor-registry-token"
       containers:
         - name: analyticscaler
           image: "docker.pkg.github.com/mediaforensics/packages/autoscaler:develop"
