@@ -42,7 +42,7 @@ analytics:
   - id: ela-base
     name: Error Level Analysis
     description: Identifying areas within an image that are at different compression levels
-    container: docker.pkg.github.com/mediaforensics/packages/ela:latest
+    container: ghcr.io/mediaforensics/packages/ela:latest
     version: prod2020-03
     media: ["IMAGE", "VIDEO"]
     resources:
@@ -57,7 +57,7 @@ analytics:
   - id: exif
     name: Baseline Analytic Exif
     description: Baseline Analytic Exif Description
-    container: docker.pkg.github.com/mediaforensics/packages/exif:latest
+    container: ghcr.io/mediaforensics/packages/exif:latest
     version: prod2020-03
     media: ["IMAGE"]
     resources:
@@ -85,7 +85,7 @@ fusers:
   - id: ta2avg
     name: Image Averaging Fusion
     description: Averages all analytic input scores available to calculate score
-    container: docker.pkg.github.com/mediaforensics/packages/ta2avg:latest
+    container: ghcr.io/mediaforensics/packages/ta2avg:latest
     version: prod2020-03
     media: ["FUSION_IMAGE", "FUSION_VIDEO"]
     resources:
@@ -122,7 +122,7 @@ analyticworker:
   id: analyticworkflow
   version: develop
   config_mount: /mnt/config/analytic_config.json
-  container: docker.pkg.github.com/mediaforensics/packages/analyticworker:latest
+  container: ghcr.io/mediaforensics/packages/analyticworker:latest
   ports:
     grpc:
       port_number: 50051
@@ -151,7 +151,7 @@ analyticworker:
 
 ui:
   name: medifor-ui
-  container: docker.pkg.github.com/mediaforensics/packages/medifor-ui:latest
+  container: ghcr.io/mediaforensics/packages/medifor-ui:latest
   port: 3000
   service:
     type: NodePort
