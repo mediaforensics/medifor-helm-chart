@@ -77,8 +77,8 @@ spec:
           requests:
             cpu: 500m    
             memory: 512Mi
-      imagePullSecrets:
-      - name : medifor-registry-token
+      # imagePullSecrets:
+      # - name : medifor-registry-token
       restartPolicy: Always
       volumes:
       - name: medifor-data
